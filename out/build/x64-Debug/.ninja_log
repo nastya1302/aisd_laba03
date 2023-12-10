@@ -1,0 +1,10 @@
+# ninja log v5
+3	424	7239276078278240	CMakeFiles/Sorting.dir/src/Sorting.cc.obj	76f41542f1490e7e
+67	1546	7239276088906882	CMakeFiles/console_s.dir/console/console_s.cc.obj	f35274fa239ad4a5
+426	1784	7239276091378747	Sorting.dll	a41957d810261357
+426	1784	7239276091378747	Sorting.lib	a41957d810261357
+1784	2899	7239276102528643	console_s.exe	8186e90ec2b1bdcc
+3	1183	7239276805271317	CMakeFiles/console_s.dir/console/console_s.cc.obj	f35274fa239ad4a5
+1183	1745	7239276809747317	console_s.exe	8186e90ec2b1bdcc
+5	1175	7239277243621430	CMakeFiles/console_s.dir/console/console_s.cc.obj	f35274fa239ad4a5
+1175	1751	7239277248245917	console_s.exe	8186e90ec2b1bdcc
