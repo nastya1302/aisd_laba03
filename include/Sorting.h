@@ -19,8 +19,7 @@ namespace sorting {
     };
 
     ostream& operator<<(std::ostream& stream, const Stats& stats) {
-        stream << "Comparison count : " << stats.comparison_count << std::endl;
-        stream << "Copy count : " << stats.copy_count << std::endl;
+        stream << stats.comparison_count << " " << stats.copy_count << std::endl;
         return stream;
     }
 
@@ -28,8 +27,8 @@ namespace sorting {
         Stats stats; 
         for (int i = 1; i < mas.size(); i++) {
             for (int j = i; j > 0; j--) {
-                ++stats.comparison_count;
-                if (mas[j - 1] >= mas[j]) {
+                stats.comparison_count++;
+                if (mas[j - 1] > mas[j]) {
                     swap(mas[j - 1], mas[j]);
                     stats.copy_count += 2;
                 }
@@ -43,7 +42,7 @@ namespace sorting {
         int left = 1, right = mas.size() - 1;
         while (left <= right){
             for (int i = right; i >= left; i--) {
-                stats.comparison_count += 1;
+                stats.comparison_count++;
                 if (mas[i - 1] > mas[i]) {
                     swap(mas[i - 1], mas[i]);
                     stats.copy_count += 2;
@@ -51,7 +50,7 @@ namespace sorting {
             }
             left++;
             for (int i = left; i <= right; i++) {
-                stats.comparison_count += 1;
+                stats.comparison_count++;
                 if (mas[i - 1] > mas[i]) {
                     swap(mas[i - 1], mas[i]);
                     stats.copy_count += 2;
@@ -67,22 +66,22 @@ namespace sorting {
         int left = 2 * i + 1;
         int right = 2 * i + 2;
 
-        stats.comparison_count += 1;
+        stats.comparison_count++;
         if (left < size && mas[left] > mas[largest]) {
             largest = left;
             stats.copy_count++;
         }
 
-        stats.comparison_count += 1;
+        stats.comparison_count++;
         if (right < size && mas[right] > mas[largest]) {
             largest = right;
             stats.copy_count++;
         }
 
-        stats.comparison_count += 1;
+        stats.comparison_count++;
         if (largest != i) {
             swap(mas[i], mas[largest]);
-            stats.copy_count++;
+            stats.copy_count += 2;
             heapify(mas, size, largest, stats);
         }
     }
@@ -117,20 +116,19 @@ namespace sorting {
         return mas;
     }
 
-
     Stats average_stats(int size, Stats(*sorted_func)(vector<int>& arr)) {
         int count = 100;
         Stats stats;
         for (int i = 0; i < 100; i++) {
             vector<int> mas = random_mas(size);
             stats += sorted_func(mas);
+            //cout << i << " " << size << endl;
         }
         stats.comparison_count /= count;
         stats.copy_count /= count;
         return stats;
     }
 
-    
     vector<int> sorted_mas(size_t size) {
         vector<int> mas;
         for (int i = 0; i < size; i++)
