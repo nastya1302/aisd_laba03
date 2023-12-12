@@ -23,7 +23,8 @@ namespace sorting {
         return stream;
     }
 
-    Stats insert_sort(vector<int>& mas) {
+    template<typename T>
+    Stats insert_sort(vector<T>& mas) {
         Stats stats; 
         for (int i = 1; i < mas.size(); i++) {
             for (int j = i; j > 0; j--) {
@@ -37,7 +38,8 @@ namespace sorting {
         return stats;
     }
 
-    Stats coctail_sort(vector<int>& mas) {
+    template<typename T>
+    Stats coctail_sort(vector<T>& mas) {
         Stats stats;
         int left = 1, right = mas.size() - 1;
         while (left <= right){
@@ -61,7 +63,8 @@ namespace sorting {
         return stats;
     }
 
-    void heapify(vector<int>& mas, int size, int i, Stats& stats) {
+    template<typename T>
+    void heapify(vector<T>& mas, int size, int i, Stats& stats) {
         int largest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
@@ -86,7 +89,8 @@ namespace sorting {
         }
     }
 
-    Stats heap_sort(vector<int>& mas) {
+    template<typename T>
+    Stats heap_sort(vector<T>& mas) {
         Stats stats;
         int size = mas.size();
         for (int i = size / 2 - 1; i >= 0; i--) {
@@ -101,27 +105,30 @@ namespace sorting {
         return stats;
     }
 
-    int random_value(int from, int to) {
+    template<typename T>
+    T random_value(T from, T to) {
         random_device rd;
         mt19937 gen(rd());
         uniform_real_distribution<> segment(from, to);
         return segment(gen);
     }
 
-    vector<int> random_mas(size_t size) {
-        vector<int> mas;
+    template<typename T>
+    vector<T> random_mas(size_t size) {
+        vector<T> mas;
         int min = 1, max = 100000;
         for (int i = 0; i < size; ++i)
             mas.push_back(random_value(min, max));
         return mas;
     }
 
-    Stats average_stats(int size, Stats(*sorted_func)(vector<int>& arr)) {
+    template<typename T>
+    Stats average_stats(int size, Stats(*sorted_func)(vector<T>& arr)) {
         int count = 100;
         Stats stats;
         for (int i = 0; i < 100; i++) {
-            vector<int> mas = random_mas(size);
-            stats += sorted_func(mas);
+            //vector<T> mas = random_mas(size);
+           // stats += sorted_func(mas);
             //cout << i << " " << size << endl;
         }
         stats.comparison_count /= count;
@@ -129,21 +136,24 @@ namespace sorting {
         return stats;
     }
 
-    vector<int> sorted_mas(size_t size) {
-        vector<int> mas;
+    template<typename T>
+    vector<T> sorted_mas(size_t size) {
+        vector<T> mas;
         for (int i = 0; i < size; i++)
             mas.push_back(i);
         return mas;
     }
 
-    vector<int> back_sorted_mas(size_t size) {
-        vector<int> mas;
+    template<typename T>
+    vector<T> back_sorted_mas(size_t size) {
+        vector<T> mas;
         for (int i = size; i > 0; i--)
             mas.push_back(i);
         return mas;
     }
 
-    ostream& operator<<(std::ostream& stream, const vector<int>& mas) {
+    template<typename T>
+    ostream& operator<<(std::ostream& stream, const vector<T>& mas) {
         for (int i = 0; i < mas.size(); i++)
             stream << mas[i] << " ";
         return stream;
