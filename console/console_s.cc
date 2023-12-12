@@ -39,6 +39,13 @@ int main() {
 	//cout << heap_sort(mas);
 	cout << mas << endl;*/
 
+	/*vector<Animals> animals{Animals("cat", 3.4), Animals("dog", 55.5), Animals("cat", 2.5), Animals("goat", 60.7), Animals("dog", 25.6)};
+	cout << animals << endl;
+	cout << "(Comparison count, copy count) : " << insert_sort(animals) << endl;
+	//cout << coctail_sort(animals);
+	//cout << heap_sort(animals);
+	cout << animals << endl; */
+
 
 	return 0;
 }

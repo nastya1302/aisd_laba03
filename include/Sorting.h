@@ -7,6 +7,37 @@ using namespace std;
 
 namespace sorting {
 
+    class Animals {
+    private:
+        string name;
+        double weight;
+
+    public:
+        Animals() : name(""), weight(0) {}
+        Animals(string _name, double _weight) : name(_name), weight(_weight) {}
+
+        string get_name() const {
+            return name;
+        }
+
+        double get_weigth() const {
+            return weight;
+        }
+
+        bool operator==(const Animals& other)const {
+            return name == other.name && weight == other.weight;
+        }
+
+        bool operator>(const Animals& other)const {
+            return name == other.name && weight > other.weight || name > other.name;
+        }
+    };
+
+    ostream& operator<<(std::ostream& stream, const Animals& animals) {
+        stream << animals.get_name() << ": " << animals.get_weigth() << "kg" << endl;
+        return stream;
+    }
+
     struct Stats {
         size_t comparison_count = 0;
         size_t copy_count = 0;
@@ -19,7 +50,7 @@ namespace sorting {
     };
 
     ostream& operator<<(std::ostream& stream, const Stats& stats) {
-        stream << stats.comparison_count << " " << stats.copy_count << std::endl;
+        stream <<"(" << stats.comparison_count << ", " << stats.copy_count << ")" << endl;
         return stream;
     }
 
