@@ -2,10 +2,18 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <ctime>
 
 using namespace std;
 
 namespace sorting {
+
+    template<typename T>
+    ostream& operator<<(std::ostream& stream, const vector<T>& mas) {
+        for (int i = 0; i < mas.size(); i++)
+            stream << mas[i] << " ";
+        return stream;
+    }
 
     class Animals {
     private:
@@ -79,6 +87,7 @@ namespace sorting {
                 if (mas[i - 1] > mas[i]) {
                     swap(mas[i - 1], mas[i]);
                     stats.copy_count += 2;
+                    cout << mas<<endl;
                 }
             }
             left++;
@@ -87,6 +96,7 @@ namespace sorting {
                 if (mas[i - 1] > mas[i]) {
                     swap(mas[i - 1], mas[i]);
                     stats.copy_count += 2;
+                    cout << mas << endl;
                 }
             }
             right--;
@@ -136,31 +146,27 @@ namespace sorting {
         return stats;
     }
 
-    template<typename T>
-    T random_value(T from, T to) {
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_real_distribution<> segment(from, to);
-        return segment(gen);
-    }
-
-    template<typename T>
-    vector<T> random_mas(size_t size) {
-        vector<T> mas;
-        int min = 1, max = 100000;
-        for (int i = 0; i < size; ++i)
-            mas.push_back(random_value(min, max));
+    //template<typename T>
+    vector<int> random_mas(size_t size, int min, int max, int seed) {
+        vector<int> mas;
+        mt19937 gen(seed);
+        uniform_real_distribution<> segment(min, max);
+        for (int i = 0; i < size; ++i) {
+            int value = segment(gen);
+            mas.push_back(value);
+        }
         return mas;
     }
 
-    template<typename T>
-    Stats average_stats(int size, Stats(*sorted_func)(vector<T>& arr)) {
+    //template<typename T>
+    Stats average_stats(int size, Stats(*sorted_func)(vector<int>& arr), int seed) {
         int count = 100;
         Stats stats;
-        for (int i = 0; i < 100; i++) {
-            //vector<T> mas = random_mas(size);
-           // stats += sorted_func(mas);
-            //cout << i << " " << size << endl;
+        int min = 0;
+        int max = 100000;
+        for (int i = 0; i < count; i++) {
+            vector<int> mas = random_mas(size, min, max, seed);
+            stats += sorted_func(mas);
         }
         stats.comparison_count /= count;
         stats.copy_count /= count;
@@ -183,11 +189,5 @@ namespace sorting {
         return mas;
     }
 
-    template<typename T>
-    ostream& operator<<(std::ostream& stream, const vector<T>& mas) {
-        for (int i = 0; i < mas.size(); i++)
-            stream << mas[i] << " ";
-        return stream;
-    }
-
+   
 }
